@@ -12,9 +12,7 @@
         android:theme="@style/Theme.ToDo"
         android:fullBackupContent="@xml/backup_descriptor">
         <activity
-            android:name=".ui.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.ToDo.NoActionBar">
+            android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
