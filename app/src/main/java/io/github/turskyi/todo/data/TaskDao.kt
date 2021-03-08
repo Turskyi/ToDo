@@ -32,4 +32,7 @@ interface TaskDao {
 
     @Delete
     suspend fun delete(task: TaskEntity)
+
+    @Query("DELETE FROM $TABLE_TASKS WHERE $COLUMN_COMPLETED = 1")
+    suspend fun deleteCompletedTasks()
 }
