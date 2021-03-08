@@ -6,7 +6,6 @@ import io.github.turskyi.todo.data.TaskEntity.Companion.COLUMN_CREATED
 import io.github.turskyi.todo.data.TaskEntity.Companion.COLUMN_IMPORTANT
 import io.github.turskyi.todo.data.TaskEntity.Companion.COLUMN_NAME
 import io.github.turskyi.todo.data.TaskEntity.Companion.TABLE_TASKS
-import io.github.turskyi.todo.ui.tasks.SortOrder
 import kotlinx.coroutines.flow.Flow
 
 @Dao
