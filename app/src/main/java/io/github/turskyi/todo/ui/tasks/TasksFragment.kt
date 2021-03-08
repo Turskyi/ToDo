@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.turskyi.todo.R
 import io.github.turskyi.todo.data.SortOrder
+import io.github.turskyi.todo.data.TaskEntity
 import io.github.turskyi.todo.databinding.FragmentTasksBinding
 import io.github.turskyi.todo.util.onQueryTextChanged
 import kotlinx.coroutines.flow.first
@@ -22,7 +23,7 @@ import kotlinx.coroutines.launch
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 @AndroidEntryPoint
-class TasksFragment : Fragment(R.layout.fragment_tasks) {
+class TasksFragment : Fragment(R.layout.fragment_tasks), TasksAdapter.OnItemClickListener {
 
     private val viewModel: TasksViewModel by viewModels()
 
@@ -31,7 +32,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
 
         val binding = FragmentTasksBinding.bind(view)
 
-        val taskAdapter = TasksAdapter()
+        val taskAdapter = TasksAdapter(this)
 
         binding.apply {
             recyclerViewTasks.apply {
@@ -85,5 +86,13 @@ class TasksFragment : Fragment(R.layout.fragment_tasks) {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onItemClick(task: TaskEntity) {
+        viewModel.onTaskSelected(task)
+    }
+
+    override fun onCheckBoxClick(task: TaskEntity, isChecked: Boolean) {
+        viewModel.onTaskCheckedChanged(task, isChecked)
     }
 }

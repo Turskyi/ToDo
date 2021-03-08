@@ -79,6 +79,7 @@ dependencies {
     kapt "androidx.hilt:hilt-compiler:$hiltAndroidXVersion"
     implementation 'androidx.hilt:hilt-navigation-fragment:1.0.0-alpha03'
 
+//    TODO: replace with not deprecated api
     /* DataStore */
     implementation "androidx.datastore:datastore-preferences:$dataStoreVersion"
 
