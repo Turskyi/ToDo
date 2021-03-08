@@ -12,7 +12,8 @@
         android:theme="@style/Theme.ToDo"
         android:fullBackupContent="@xml/backup_descriptor">
         <activity
-            android:name=".ui.MainActivity">
+            android:name=".ui.MainActivity"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
