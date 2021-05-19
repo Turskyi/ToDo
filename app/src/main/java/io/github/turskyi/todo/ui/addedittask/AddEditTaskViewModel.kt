@@ -1,10 +1,9 @@
 package io.github.turskyi.todo.ui.addedittask
 
-import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.turskyi.todo.data.TaskDao
 import io.github.turskyi.todo.data.TaskEntity
 import io.github.turskyi.todo.ui.ADD_TASK_RESULT_OK
@@ -12,13 +11,15 @@ import io.github.turskyi.todo.ui.EDIT_TASK_RESULT_OK
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AddEditTaskViewModel @ViewModelInject constructor(
+@HiltViewModel
+class AddEditTaskViewModel @Inject constructor(
     private val taskDao: TaskDao,
-    @Assisted private val state: SavedStateHandle
+    private val state: SavedStateHandle
 ) : ViewModel() {
 
-    val task = state.get<TaskEntity>("task")
+    val task:TaskEntity? = state.get<TaskEntity>("task")
 
     var taskName = state.get<String>("taskName") ?: task?.name ?: ""
         set(value) {
@@ -37,7 +38,7 @@ class AddEditTaskViewModel @ViewModelInject constructor(
 
     fun onSaveClick() {
         if (taskName.isBlank()) {
-            showInvalidInputMessage("Name cannot be empty")
+            "Name cannot be empty".showInvalidInputMessage()
             return
         }
 
@@ -60,8 +61,8 @@ class AddEditTaskViewModel @ViewModelInject constructor(
         addEditTaskEventChannel.send(AddEditTaskEvent.NavigateBackWithResult(EDIT_TASK_RESULT_OK))
     }
 
-    private fun showInvalidInputMessage(text: String) = viewModelScope.launch {
-        addEditTaskEventChannel.send(AddEditTaskEvent.ShowInvalidInputMessage(text))
+    private fun String.showInvalidInputMessage() = viewModelScope.launch {
+        addEditTaskEventChannel.send(AddEditTaskEvent.ShowInvalidInputMessage(this@showInvalidInputMessage))
     }
 
     sealed class AddEditTaskEvent {

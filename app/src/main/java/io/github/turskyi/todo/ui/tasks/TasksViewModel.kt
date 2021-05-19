@@ -1,8 +1,7 @@
 package io.github.turskyi.todo.ui.tasks
 
-import androidx.hilt.Assisted
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.github.turskyi.todo.data.*
 import io.github.turskyi.todo.ui.ADD_TASK_RESULT_OK
 import io.github.turskyi.todo.ui.EDIT_TASK_RESULT_OK
@@ -12,12 +11,13 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-//TODO: replace with not deprecated api
-class TasksViewModel @ViewModelInject constructor(
+@HiltViewModel
+class TasksViewModel @Inject constructor(
     private val taskDao: TaskDao,
     private val preferencesManager: PreferencesManager,
-    @Assisted private val state: SavedStateHandle
+    state: SavedStateHandle
 ) : ViewModel() {
 
     val searchQuery = state.getLiveData("searchQuery", "")

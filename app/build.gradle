@@ -48,15 +48,13 @@ dependencies {
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
     implementation "com.google.android.material:material:$materialVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.3'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.3'
 
     /* Fragment */
     implementation "androidx.fragment:fragment-ktx:$fragmentVersion"
 
     /* Lifecycle + ViewModel & LiveData */
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
 
     /* Navigation Component */
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
@@ -69,16 +67,15 @@ dependencies {
 
     /* Coroutines */
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3"
 
     /* Dagger Hilt */
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
-    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltAndroidXVersion"
     kapt "androidx.hilt:hilt-compiler:$hiltAndroidXVersion"
-    implementation 'androidx.hilt:hilt-navigation-fragment:1.0.0-alpha03'
+    implementation 'androidx.hilt:hilt-navigation-fragment:1.0.0'
 
-//    TODO: replace with not deprecated api
+//    TODO: replace with not deprecated api https://developer.android.com/jetpack/androidx/releases/datastore
     /* DataStore */
     implementation "androidx.datastore:datastore-preferences:$dataStoreVersion"
 
