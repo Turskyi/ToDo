@@ -42,7 +42,7 @@ android {
 }
 
 dependencies {
-    /* Default dependencies */
+    // Default dependencies
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "androidx.core:core-ktx:$ktxVersion"
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
@@ -54,7 +54,7 @@ dependencies {
 
     /* Lifecycle + ViewModel & LiveData */
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
 
     /* Navigation Component */
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
@@ -67,15 +67,15 @@ dependencies {
 
     /* Coroutines */
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
 
     /* Dagger Hilt */
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
     kapt "androidx.hilt:hilt-compiler:$hiltAndroidXVersion"
-    implementation 'androidx.hilt:hilt-navigation-fragment:1.0.0'
+    implementation "androidx.hilt:hilt-navigation-fragment:$hiltAndroidXVersion"
 
-//    TODO: replace with not deprecated api https://developer.android.com/jetpack/androidx/releases/datastore
+//    TODO: replace with release version https://developer.android.com/jetpack/androidx/releases/datastore
     /* DataStore */
     implementation "androidx.datastore:datastore-preferences:$dataStoreVersion"
 
