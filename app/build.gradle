@@ -37,6 +37,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+//  this line is responsible for suppressing lint messages since this project uses experimental api
         freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
     }
 }
@@ -49,14 +50,14 @@ dependencies {
     implementation "com.google.android.material:material:$materialVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
 
-    /* Fragment */
+    // Fragment
     implementation "androidx.fragment:fragment-ktx:$fragmentVersion"
 
-    /* Lifecycle + ViewModel & LiveData */
+    // Lifecycle + ViewModel & LiveData
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
 
-    /* Navigation Component */
+    // Navigation Component
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
 
@@ -65,27 +66,27 @@ dependencies {
     kapt "androidx.room:room-compiler:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
 
-    /* Coroutines */
+    // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
 
-    /* Dagger Hilt */
+    // Dagger Hilt
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
     kapt "androidx.hilt:hilt-compiler:$hiltAndroidXVersion"
     implementation "androidx.hilt:hilt-navigation-fragment:$hiltAndroidXVersion"
 
 //    TODO: replace with release version https://developer.android.com/jetpack/androidx/releases/datastore
-    /* DataStore */
+    // DataStore
     implementation "androidx.datastore:datastore-preferences:$dataStoreVersion"
 
-    /* Tests */
+    // Tests
     testImplementation "junit:junit:$junitVersion"
     androidTestImplementation "androidx.test.ext:junit:$testExtJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espressoVersion"
 }
 
-/* for dagger hilt */
+// for dagger hilt
 kapt {
     correctErrorTypes true
 }

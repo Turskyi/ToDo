@@ -2,24 +2,24 @@
 buildscript {
     // Defining versions in a single place
     ext{
-        /* Sdk and tools */
+        // Sdk and tools
         minSdkVersion = 21
         targetSdkVersion = 30
         compileSdkVersion = 30
 
-        /* App dependencies */
-        kotlin_version = "1.5.0"
-        appCompatVersion = "1.2.0"
+        // App dependencies
+        kotlin_version = "1.5.10"
+        appCompatVersion = "1.3.0"
         constraintLayoutVersion = "2.0.4"
         coroutinesVersion = "1.5.0"
 //        TODO: update version when it will be stable https://developer.android.com/jetpack/androidx/releases/datastore
         dataStoreVersion = "1.0.0-alpha06"
         espressoVersion = "3.3.0"
-        fragmentVersion = "1.3.3"
+        fragmentVersion = "1.3.4"
         gradleVersion = '4.2.1'
         hiltAndroidXVersion = "1.0.0"
         hiltVersion = "2.35.1"
-        ktxVersion = "1.3.2"
+        ktxVersion = "1.5.0"
         lifecycleVersion = "2.3.1"
         materialVersion = "1.3.0"
         navigationVersion = "2.3.5"
