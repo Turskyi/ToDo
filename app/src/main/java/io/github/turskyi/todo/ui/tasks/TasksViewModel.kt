@@ -20,14 +20,14 @@ class TasksViewModel @Inject constructor(
     state: SavedStateHandle
 ) : ViewModel() {
 
-    val searchQuery = state.getLiveData("searchQuery", "")
+    val searchQuery: MutableLiveData<String> = state.getLiveData("searchQuery", "")
 
     val preferencesFlow: Flow<FilterPreferences> = preferencesManager.preferencesFlow
 
-    private val tasksEventChannel = Channel<TasksEvent>()
-    val tasksEvent = tasksEventChannel.receiveAsFlow()
+    private val tasksEventChannel: Channel<TasksEvent> = Channel()
+    val tasksEvent: Flow<TasksEvent> = tasksEventChannel.receiveAsFlow()
 
-    private val tasksFlow = combine(
+    private val tasksFlow: Flow<List<TaskEntity>> = combine(
         searchQuery.asFlow(),
         preferencesFlow
     ) { query, filterPreferences ->
@@ -53,7 +53,7 @@ class TasksViewModel @Inject constructor(
         preferencesManager.updateHideCompleted(hideCompleted)
     }
 
-    fun onTaskSelected(task: TaskEntity)= viewModelScope.launch {
+    fun onTaskSelected(task: TaskEntity) = viewModelScope.launch {
         tasksEventChannel.send(TasksEvent.NavigateToEditTaskScreen(task))
     }
 

@@ -5,6 +5,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import io.github.turskyi.todo.data.TaskDao
 import io.github.turskyi.todo.data.TaskDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
@@ -20,21 +21,17 @@ object AppModule {
     fun provideDatabase(
         app: Application,
         callback: TaskDatabase.Callback
-    ) = Room.databaseBuilder(app, TaskDatabase::class.java, "task_database")
+    ):TaskDatabase = Room.databaseBuilder(app, TaskDatabase::class.java, "task_database")
 //        TODO: remove before release
         .fallbackToDestructiveMigration()
         .addCallback(callback)
         .build()
 
     @Provides
-    fun provideTaskDao(db: TaskDatabase) = db.taskDao()
+    fun provideTaskDao(db: TaskDatabase):TaskDao = db.taskDao()
 
     @ApplicationScope
     @Provides
     @Singleton
-    fun provideApplicationScope() = CoroutineScope(SupervisorJob())
+    fun provideApplicationScope():CoroutineScope = CoroutineScope(SupervisorJob())
 }
-
-@Retention(AnnotationRetention.RUNTIME)
-@Qualifier
-annotation class ApplicationScope

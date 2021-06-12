@@ -22,17 +22,17 @@ abstract class TaskDatabase : RoomDatabase() {
         override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
 
-            val dao = database.get().taskDao()
+            val dao: TaskDao = database.get().taskDao()
 
             applicationScope.launch {
-                dao.insert(TaskEntity("Wash the dishes"))
-                dao.insert(TaskEntity("Do the laundry"))
-                dao.insert(TaskEntity("Buy groceries", important = true))
-                dao.insert(TaskEntity("Prepare food", completed = true))
-                dao.insert(TaskEntity("Call mom"))
-                dao.insert(TaskEntity("Visit grandma", completed = true))
-                dao.insert(TaskEntity("Repair my bike"))
-                dao.insert(TaskEntity("Call Elon Musk"))
+                dao.insert(TaskEntity(name = "Wash the dishes"))
+                dao.insert(TaskEntity(name = "Do the laundry"))
+                dao.insert(TaskEntity(name = "Buy groceries", important = true))
+                dao.insert(TaskEntity(name = "Prepare food", completed = true))
+                dao.insert(TaskEntity(name = "Call mom"))
+                dao.insert(TaskEntity(name = "Visit grandma", completed = true))
+                dao.insert(TaskEntity(name = "Repair my bike"))
+                dao.insert(TaskEntity(name = "Call Elon Musk"))
             }
         }
     }
