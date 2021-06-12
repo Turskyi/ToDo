@@ -36,7 +36,7 @@ class TasksViewModel @Inject constructor(
         taskDao.getTasks(query, filterPreferences.sortOrder, filterPreferences.hideCompleted)
     }
 
-    val tasks = tasksFlow.asLiveData()
+    val tasks: LiveData<List<TaskEntity>> = tasksFlow.asLiveData()
 
     fun onAddEditResult(result: Int) {
         when (result) {
