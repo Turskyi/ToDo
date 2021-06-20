@@ -12,7 +12,8 @@ import io.github.turskyi.todo.databinding.ItemTaskBinding
 class TasksAdapter(private val listener: OnItemClickListener) : ListAdapter<TaskEntity, TasksAdapter.TasksViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TasksViewHolder {
-        val binding = ItemTaskBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding: ItemTaskBinding =
+            ItemTaskBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TasksViewHolder(binding)
     }
 
@@ -56,10 +57,12 @@ class TasksAdapter(private val listener: OnItemClickListener) : ListAdapter<Task
     }
 
     class DiffCallback : DiffUtil.ItemCallback<TaskEntity>() {
-        override fun areItemsTheSame(oldItem: TaskEntity, newItem: TaskEntity) =
-            oldItem.id == newItem.id
+        override fun areItemsTheSame(oldItem: TaskEntity, newItem: TaskEntity): Boolean {
+            return oldItem.id == newItem.id
+        }
 
-        override fun areContentsTheSame(oldItem: TaskEntity, newItem: TaskEntity) =
-            oldItem == newItem
+        override fun areContentsTheSame(oldItem: TaskEntity, newItem: TaskEntity): Boolean {
+            return oldItem == newItem
+        }
     }
 }

@@ -9,7 +9,7 @@ plugins {
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
-    buildToolsVersion "30.0.2"
+    buildToolsVersion rootProject.buildToolsVersion
 
     defaultConfig {
         applicationId "io.github.turskyi.todo"

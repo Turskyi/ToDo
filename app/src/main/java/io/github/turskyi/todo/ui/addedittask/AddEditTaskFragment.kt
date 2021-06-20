@@ -28,7 +28,7 @@ class AddEditTaskFragment : Fragment(R.layout.fragment_add_edit_task) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val binding = FragmentAddEditTaskBinding.bind(view)
+        val binding: FragmentAddEditTaskBinding = FragmentAddEditTaskBinding.bind(view)
 
         binding.apply {
             editTextTaskName.setText(viewModel.taskName)
