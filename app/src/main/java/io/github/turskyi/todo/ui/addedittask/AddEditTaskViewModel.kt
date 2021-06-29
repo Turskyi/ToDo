@@ -38,7 +38,9 @@ class AddEditTaskViewModel @Inject constructor(
 
     fun onSaveClick() {
         if (taskName.isBlank()) {
-            "Name cannot be empty".showInvalidInputMessage()
+            viewModelScope.launch {
+                addEditTaskEventChannel.send(AddEditTaskEvent.ShowInvalidInputMessage("Name cannot be empty"))
+            }
             return
         }
 
@@ -59,10 +61,6 @@ class AddEditTaskViewModel @Inject constructor(
     private fun updateTask(task: TaskEntity) = viewModelScope.launch {
         taskDao.update(task)
         addEditTaskEventChannel.send(AddEditTaskEvent.NavigateBackWithResult(EDIT_TASK_RESULT_OK))
-    }
-
-    private fun String.showInvalidInputMessage() = viewModelScope.launch {
-        addEditTaskEventChannel.send(AddEditTaskEvent.ShowInvalidInputMessage(this@showInvalidInputMessage))
     }
 
     sealed class AddEditTaskEvent {

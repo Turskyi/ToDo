@@ -9,7 +9,7 @@ buildscript {
         buildToolsVersion = "30.0.3"
 
         // App dependencies
-        kotlin_version = "1.5.10"
+        kotlin_version = "1.5.20"
         appCompatVersion = "1.3.0"
         materialVersion = "1.3.0"
         constraintLayoutVersion = "2.0.4"
