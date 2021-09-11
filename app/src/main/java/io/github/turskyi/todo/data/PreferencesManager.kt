@@ -1,8 +1,10 @@
 package io.github.turskyi.todo.data
+
 import android.content.Context
 import android.util.Log
+import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
-import androidx.datastore.preferences.createDataStore
+import androidx.datastore.preferences.preferencesDataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -16,14 +18,16 @@ private const val TAG = "PreferencesManager"
 enum class SortOrder { BY_NAME, BY_DATE }
 
 data class FilterPreferences(val sortOrder: SortOrder, val hideCompleted: Boolean)
+
 /** Preferences repository */
 @Singleton
 class PreferencesManager @Inject constructor(@ApplicationContext context: Context) {
 
-    private val dataStore = context.createDataStore("user_preferences")
+    private val Context.dataStore by preferencesDataStore("user_preferences")
+    private val dataStore : DataStore<Preferences> = context.dataStore
 
-    val preferencesFlow:Flow<FilterPreferences> = dataStore.data
-        .catch { exception ->
+    val preferencesFlow: Flow<FilterPreferences> = dataStore.data
+        .catch { exception: Throwable ->
             if (exception is IOException) {
                 Log.e(TAG, "Error reading preferences", exception)
                 emit(emptyPreferences())
@@ -31,11 +35,11 @@ class PreferencesManager @Inject constructor(@ApplicationContext context: Contex
                 throw exception
             }
         }
-        .map { preferences ->
-            val sortOrder = SortOrder.valueOf(
+        .map { preferences: Preferences ->
+            val sortOrder: SortOrder = SortOrder.valueOf(
                 preferences[PreferencesKeys.SORT_ORDER] ?: SortOrder.BY_DATE.name
             )
-            val hideCompleted = preferences[PreferencesKeys.HIDE_COMPLETED] ?: false
+            val hideCompleted: Boolean = preferences[PreferencesKeys.HIDE_COMPLETED] ?: false
             FilterPreferences(sortOrder, hideCompleted)
         }
 

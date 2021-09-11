@@ -163,7 +163,8 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TasksAdapter.OnItemClic
     }
 
     private fun initObservers(taskAdapter: TasksAdapter) {
-        viewModel.tasks.observe(viewLifecycleOwner) {
+        viewModel.
+        tasks.observe(viewLifecycleOwner) {
             taskAdapter.submitList(it)
         }
 

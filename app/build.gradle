@@ -29,14 +29,14 @@ android {
         }
     }
     buildFeatures {
-        viewBinding = true
+        viewBinding true
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
 //  this line is responsible for suppressing lint messages since this project uses experimental api
         freeCompilerArgs += "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
     }
@@ -47,7 +47,6 @@ dependencies {
     implementation "androidx.core:core-ktx:$ktxVersion"
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
     implementation "com.google.android.material:material:$materialVersion"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
 
     // Fragment
     implementation "androidx.fragment:fragment-ktx:$fragmentVersion"
@@ -70,7 +69,6 @@ dependencies {
     kapt "androidx.hilt:hilt-compiler:$hiltAndroidXVersion"
     implementation "androidx.hilt:hilt-navigation-fragment:$hiltAndroidXVersion"
 
-//    TODO: replace with release version https://developer.android.com/jetpack/androidx/releases/datastore
     // DataStore
     implementation "androidx.datastore:datastore-preferences:$dataStoreVersion"
 

@@ -9,6 +9,7 @@ import io.github.turskyi.todo.data.TaskEntity
 import io.github.turskyi.todo.ui.ADD_TASK_RESULT_OK
 import io.github.turskyi.todo.ui.EDIT_TASK_RESULT_OK
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,7 +20,7 @@ class AddEditTaskViewModel @Inject constructor(
     private val state: SavedStateHandle
 ) : ViewModel() {
 
-    val task:TaskEntity? = state.get<TaskEntity>("task")
+    val task: TaskEntity? = state.get<TaskEntity>("task")
 
     var taskName = state.get<String>("taskName") ?: task?.name ?: ""
         set(value) {
@@ -33,8 +34,8 @@ class AddEditTaskViewModel @Inject constructor(
             state.set("taskImportance", value)
         }
 
-    private val addEditTaskEventChannel = Channel<AddEditTaskEvent>()
-    val addEditTaskEvent = addEditTaskEventChannel.receiveAsFlow()
+    private val addEditTaskEventChannel: Channel<AddEditTaskEvent> = Channel()
+    val addEditTaskEvent: Flow<AddEditTaskEvent> = addEditTaskEventChannel.receiveAsFlow()
 
     fun onSaveClick() {
         if (taskName.isBlank()) {
@@ -45,7 +46,7 @@ class AddEditTaskViewModel @Inject constructor(
         }
 
         if (task != null) {
-            val updatedTask = task.copy(name = taskName, important = taskImportance)
+            val updatedTask: TaskEntity = task.copy(name = taskName, important = taskImportance)
             updateTask(updatedTask)
         } else {
             val newTask = TaskEntity(name = taskName, important = taskImportance)

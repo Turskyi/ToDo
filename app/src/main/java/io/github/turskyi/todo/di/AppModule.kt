@@ -9,7 +9,6 @@ import io.github.turskyi.todo.data.TaskDao
 import io.github.turskyi.todo.data.TaskDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
-import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
