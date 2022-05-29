@@ -1,7 +1,6 @@
 package io.github.turskyi.todo.data
 
 import android.content.Context
-import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
@@ -13,8 +12,6 @@ import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
 
-private const val TAG = "PreferencesManager"
-
 enum class SortOrder { BY_NAME, BY_DATE }
 
 data class FilterPreferences(val sortOrder: SortOrder, val hideCompleted: Boolean)
@@ -24,12 +21,11 @@ data class FilterPreferences(val sortOrder: SortOrder, val hideCompleted: Boolea
 class PreferencesManager @Inject constructor(@ApplicationContext context: Context) {
 
     private val Context.dataStore by preferencesDataStore("user_preferences")
-    private val dataStore : DataStore<Preferences> = context.dataStore
+    private val dataStore: DataStore<Preferences> = context.dataStore
 
     val preferencesFlow: Flow<FilterPreferences> = dataStore.data
         .catch { exception: Throwable ->
             if (exception is IOException) {
-                Log.e(TAG, "Error reading preferences", exception)
                 emit(emptyPreferences())
             } else {
                 throw exception
@@ -44,19 +40,19 @@ class PreferencesManager @Inject constructor(@ApplicationContext context: Contex
         }
 
     suspend fun updateSortOrder(sortOrder: SortOrder) {
-        dataStore.edit { preferences ->
+        dataStore.edit { preferences: MutablePreferences ->
             preferences[PreferencesKeys.SORT_ORDER] = sortOrder.name
         }
     }
 
     suspend fun updateHideCompleted(hideCompleted: Boolean) {
-        dataStore.edit { preferences ->
+        dataStore.edit { preferences: MutablePreferences ->
             preferences[PreferencesKeys.HIDE_COMPLETED] = hideCompleted
         }
     }
 
     private object PreferencesKeys {
-        val SORT_ORDER = stringPreferencesKey("sort_order")
-        val HIDE_COMPLETED = booleanPreferencesKey("hide_completed")
+        val SORT_ORDER: Preferences.Key<String> = stringPreferencesKey("sort_order")
+        val HIDE_COMPLETED: Preferences.Key<Boolean> = booleanPreferencesKey("hide_completed")
     }
 }

@@ -20,6 +20,7 @@ import io.github.turskyi.todo.data.TaskEntity
 import io.github.turskyi.todo.databinding.FragmentTasksBinding
 import io.github.turskyi.todo.util.exhaustive
 import io.github.turskyi.todo.util.onQueryTextChanged
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -74,7 +75,8 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TasksAdapter.OnItemClic
             viewModel.searchQuery.value = it
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+//"first()" The terminal operator that returns the first element emitted by the flow and then cancels flow's collection.
             menu.findItem(R.id.action_hide_completed_tasks).isChecked =
                 viewModel.preferencesFlow.first().hideCompleted
         }
@@ -169,7 +171,7 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TasksAdapter.OnItemClic
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.tasksEvent.collect { event ->
+            viewModel.tasksEvent.collect { event: TasksViewModel.TasksEvent ->
                 when (event) {
                     is TasksViewModel.TasksEvent.ShowUndoDeleteTaskMessage -> {
                         Snackbar.make(requireView(), "Task deleted", Snackbar.LENGTH_LONG)
@@ -180,16 +182,17 @@ class TasksFragment : Fragment(R.layout.fragment_tasks), TasksAdapter.OnItemClic
                     is TasksViewModel.TasksEvent.NavigateToAddTaskScreen -> {
                         val action: NavDirections =
                             TasksFragmentDirections.actionTasksFragmentToAddEditTaskFragment(
-                                null,
-                                "New Task"
-                            )
+                                title = "New Task",
+                                task = null,
+
+                                )
                         findNavController().navigate(action)
                     }
                     is TasksViewModel.TasksEvent.NavigateToEditTaskScreen -> {
                         val action: NavDirections =
                             TasksFragmentDirections.actionTasksFragmentToAddEditTaskFragment(
-                                event.task,
-                                "Edit Task"
+                                title = "Edit Task",
+                                task = event.task,
                             )
                         findNavController().navigate(action)
                     }

@@ -30,10 +30,14 @@ class TasksViewModel @Inject constructor(
     private val tasksFlow: Flow<List<TaskEntity>> = combine(
         searchQuery.asFlow(),
         preferencesFlow
-    ) { query, filterPreferences ->
+    ) { query: String, filterPreferences: FilterPreferences ->
         Pair(query, filterPreferences)
-    }.flatMapLatest { (query, filterPreferences) ->
-        taskDao.getTasks(query, filterPreferences.sortOrder, filterPreferences.hideCompleted)
+    }.flatMapLatest { (query: String, filterPreferences: FilterPreferences) ->
+        taskDao.getTasks(
+            query = query,
+            sortOrder = filterPreferences.sortOrder,
+            hideCompleted = filterPreferences.hideCompleted,
+        )
     }
 
     val tasks: LiveData<List<TaskEntity>> = tasksFlow.asLiveData()
