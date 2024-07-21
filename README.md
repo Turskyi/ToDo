@@ -34,8 +34,8 @@ the app is not unique and similar functionality can be found in many other apps 
 
 ## Technologies Used
 
-- **MVVM
-  **: [Monolithic Model-View-ViewModel architecture](https://en.wikipedia.org/wiki/Monolithic_application).
+- **MVVM**:
+  [Monolithic Model-View-ViewModel architecture](https://en.wikipedia.org/wiki/Monolithic_application).
 - **Hilt**: Dependency injection library.
 - **Flow**: Kotlin's Flow for reactive programming.
 - **DataStore**: Jetpack's DataStore for data storage.
